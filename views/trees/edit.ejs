@@ -1,0 +1,15 @@
+<% layout("layouts/boilerplate") %>
+    <h1>Edit Tree</h1>
+    <form action="/trees/<%=tree._id%>?_method=PUT" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="tree[name]" value="<%=tree.name%>">
+        </div>
+        <div>
+            <label for="location">Location</label>
+            <input type="text" id="location" name="tree[location]" value="<%=tree.location%> ">
+        </div>
+        <button>Update Tree</button>
+
+    </form>
+    <a href="/trees/<%= tree._id %> ">Back to Tree</a>

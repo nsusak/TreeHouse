@@ -1,0 +1,28 @@
+<% layout("layouts/boilerplate") %>
+    <div class="row">
+        <h1 class="text-center">New Tree</h1>
+        <div class="col-6 offset-3">
+            <form action="/trees" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" type="text" id="name" name="tree[name]">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="tree[location]">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image Url</label>
+                    <input class="form-control" type="text" id="image" name="tree[image]">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Add description</label>
+                    <textarea class="form-control" type="text" id="description" name="tree[description]"></textarea>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-success">Add Tree</button>
+                </div>
+            </form>
+            <a href="/trees">All Trees</a>
+        </div>
+    </div>

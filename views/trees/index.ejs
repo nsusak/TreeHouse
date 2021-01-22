@@ -1,0 +1,36 @@
+<% layout("layouts/boilerplate") %>
+    <h1>All trees</h1>
+    <div>
+        <a href="/trees/new">Add Tree</a>
+    </div>
+
+    <% for (let tree of trees) { %>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%=tree.image%>" class="img-fluid card-img-top" alt="">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= tree.name %>
+                        </h5>
+                        <p class="card-text">
+                            <%=tree.description%>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%=tree.location%>
+                            </small>
+                        </p>
+                        <a class="btn btn-primary" href="/trees/<%= tree._id %>">
+                            View <%= tree.name %>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <% } %>
