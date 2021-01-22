@@ -1,15 +1,31 @@
 <% layout("layouts/boilerplate") %>
-    <h1>Edit Tree</h1>
-    <form action="/trees/<%=tree._id%>?_method=PUT" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="tree[name]" value="<%=tree.name%>">
+    <div class="row">
+        <h1 class="text-center">Edit Tree</h1>
+        <div class="col-6 offset-3">
+            <form action="/trees/<%=tree._id%>?_method=PUT" method="POST">
+                <div class="mb-3">
+                    <label class="form-label" for="name">Name</label>
+                    <input class="form-control" type="text" id="name" name="tree[name]" value="<%=tree.name%>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="location">Location</label>
+                    <input class="form-control" type="text" id="location" name="tree[location]"
+                        value="<%=tree.location%>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="image">Image Url</label>
+                    <input class="form-control" type="text" id="image" name="tree[image]" value="<%=tree.image%>">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="description">Add description</label>
+                    <textarea class="form-control" type="text" id="description"
+                        name="tree[description]"><%=tree.description%></textarea>
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-info">Update Tree</button>
+                </div>
+            </form>
+            <a href="/trees/<%= tree._id %>">Back to <%=tree.name%></a>
+            <a href="/trees">All Trees</a>
         </div>
-        <div>
-            <label for="location">Location</label>
-            <input type="text" id="location" name="tree[location]" value="<%=tree.location%> ">
-        </div>
-        <button>Update Tree</button>
-
-    </form>
-    <a href="/trees/<%= tree._id %> ">Back to Tree</a>
+    </div>

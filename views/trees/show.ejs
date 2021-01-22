@@ -1,22 +1,32 @@
 <% layout("layouts/boilerplate") %>
-    <h1>
-        <%= tree.name %>
-    </h1>
-    <h2>
-        <%= tree.location %>
-    </h2>
-    <img src="<%=tree.image%>" alt="">
-    <p>
-        <%= tree.description %>
-    </p>
-    <div>
-        <form action="/trees/<%=tree._id%>?_method=DELETE" method="POST">
-            <button>Delete</button>
-        </form>
+
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card mb-3">
+                <img src="<%=tree.image%>" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= tree.name %>
+                    </h5>
+                    <p class="card-text">
+                        <%= tree.description %>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-muted">
+                        <%= tree.location %>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <a href="/trees/<%= tree._id %>/edit" class="card-link btn btn-info">Edit Tree</a>
+                    <form class="d-inline" action="/trees/<%=tree._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+
+                </div>
+                <div class="card-footer text-muted">
+                    <a href="/trees" class="card-link">Back to all Trees</a>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <footer>
-        <p><a href="/trees/<%= tree._id %>/edit">Edit</a></p>
-        <a href="/trees">All Trees</a>
-
-    </footer>
