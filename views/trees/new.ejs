@@ -2,22 +2,35 @@
     <div class="row">
         <h1 class="text-center">New Tree</h1>
         <div class="col-6 offset-3">
-            <form action="/trees" method="POST">
+            <form action="/trees" method="POST" novalidate class="needs-validation">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" id="name" name="tree[name]">
+                    <input class="form-control" type="text" id="name" name="tree[name]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
-                    <input class="form-control" type="text" id="location" name="tree[location]">
+                    <input class="form-control" type="text" id="location" name="tree[location]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" id="image" name="tree[image]">
+                    <input class="form-control" type="text" id="image" name="tree[image]" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Add description</label>
-                    <textarea class="form-control" type="text" id="description" name="tree[description]"></textarea>
+                    <textarea class="form-control" type="text" id="description" name="tree[description]"
+                        required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-success">Add Tree</button>

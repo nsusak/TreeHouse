@@ -2,24 +2,37 @@
     <div class="row">
         <h1 class="text-center">Edit Tree</h1>
         <div class="col-6 offset-3">
-            <form action="/trees/<%=tree._id%>?_method=PUT" method="POST">
+            <form action="/trees/<%=tree._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
-                    <input class="form-control" type="text" id="name" name="tree[name]" value="<%=tree.name%>">
+                    <input class="form-control" type="text" id="name" name="tree[name]" value="<%=tree.name%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="location">Location</label>
                     <input class="form-control" type="text" id="location" name="tree[location]"
-                        value="<%=tree.location%>">
+                        value="<%=tree.location%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" id="image" name="tree[image]" value="<%=tree.image%>">
+                    <input class="form-control" type="text" id="image" name="tree[image]" value="<%=tree.image%>"
+                        required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Add description</label>
-                    <textarea class="form-control" type="text" id="description"
-                        name="tree[description]"><%=tree.description%></textarea>
+                    <textarea class="form-control" type="text" id="description" name="tree[description]"
+                        required><%=tree.description%></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Tree</button>

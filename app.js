@@ -2,8 +2,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
+const { treeSchema, reviewSchema } = require("./schemas.js")
+const catchAsync = require("./utils/catchAsync");
+const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
 const Tree = require("./models/tree");
+const Review = require("./models/review");
 
 mongoose.connect("mongodb://localhost:27017/treeHouse", {
     useNewUrlParser: true,
@@ -27,6 +31,27 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+
+const validateTree = (req, res, next) => {
+    const { error } = treeSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(",")
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
+const validateReview = (req, res, next) => {
+    const { error } = reviewSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(",")
+        throw new ExpressError(msg, 400)
+    } else {
+        next();
+    }
+}
+
 app.get("/", (req, res) => {
     res.render("home")
 })
@@ -40,32 +65,58 @@ app.get("/trees/new", (req, res) => {
     res.render("trees/new")
 })
 
-app.post("/trees", async (req, res) => {
-    const tree = new Tree(req.body.tree);
+app.post("/trees", validateTree, catchAsync(async (req, res) => {
+    const tree = new Tree(req.body);
     await tree.save();
     res.redirect(`/trees/${tree._id}`)
-})
+}))
 
-app.get("/trees/:id", async (req, res) => {
-    const tree = await Tree.findById(req.params.id)
+app.get("/trees/:id", catchAsync(async (req, res) => {
+    const tree = await Tree.findById(req.params.id).populate("reviews");
     res.render("trees/show", { tree })
-})
+}))
 
-app.get("/trees/:id/edit", async (req, res) => {
+app.get("/trees/:id/edit", catchAsync(async (req, res) => {
     const tree = await Tree.findById(req.params.id)
     res.render("trees/edit", { tree })
-})
+}))
 
-app.put("/trees/:id", async (req, res) => {
+app.put("/trees/:id", validateTree, catchAsync(async (req, res) => {
     const { id } = req.params;
     const tree = await Tree.findByIdAndUpdate(id, { ...req.body.tree });
     res.redirect(`/trees/${tree._id}`)
-})
+}))
 
-app.delete("/trees/:id", async (req, res) => {
+app.delete("/trees/:id", catchAsync(async (req, res) => {
     const { id } = req.params;
     await Tree.findByIdAndDelete(id);
     res.redirect("/trees");
+}))
+
+app.post("/trees/:id/reviews", validateReview, catchAsync(async (req, res) => {
+    const tree = await Tree.findById(req.params.id);
+    const review = new Review(req.body.review);
+    tree.reviews.push(review);
+    await review.save();
+    await tree.save();
+    res.redirect(`/trees/${tree._id}`);
+}))
+
+app.delete("/trees/:id/reviews/:reviewId", catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Tree.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(req.params.reviewId);
+    res.redirect(`/trees/${id}`)
+}))
+
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404))
+})
+
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = "Something went wrong!"
+    res.status(statusCode).render("error", { err })
 })
 
 app.listen(3000, () => {
