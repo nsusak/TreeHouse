@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports.treeSchema = Joi.object({
     tree: Joi.object({
-        name: Joi.string().alphanum().required(),
+        name: Joi.string().required(),
         location: Joi.string().required(),
         image: Joi.string().required(),
         description: Joi.string().required()
