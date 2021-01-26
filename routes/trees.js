@@ -4,6 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const { treeSchema } = require("../schemas.js")
 const ExpressError = require("../utils/ExpressError");
 const Tree = require("../models/tree");
+const { isLoggedIn } = require("../middleware");
 
 const validateTree = (req, res, next) => {
     const { error } = treeSchema.validate(req.body);
@@ -20,11 +21,11 @@ router.get("/", async (req, res) => {
     res.render("trees/index", { trees })
 })
 
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("trees/new")
 })
 
-router.post("/", validateTree, catchAsync(async (req, res) => {
+router.post("/", isLoggedIn, validateTree, catchAsync(async (req, res) => {
     const tree = new Tree(req.body);
     await tree.save();
     req.flash("success", "Successfully made a new tree!");
@@ -40,7 +41,7 @@ router.get("/:id", catchAsync(async (req, res) => {
     res.render("trees/show", { tree })
 }))
 
-router.get("/:id/edit", catchAsync(async (req, res) => {
+router.get("/:id/edit", isLoggedIn, catchAsync(async (req, res) => {
     const tree = await Tree.findById(req.params.id);
     if (!tree) {
         req.flash("error", "Tree not found!");
@@ -56,7 +57,7 @@ router.put("/:id", validateTree, catchAsync(async (req, res) => {
     res.redirect(`/trees/${tree._id}`)
 }))
 
-router.delete("/:id", catchAsync(async (req, res) => {
+router.delete("/:id", isLoggedIn, catchAsync(async (req, res) => {
     const { id } = req.params;
     await Tree.findByIdAndDelete(id);
     req.flash("success", "Successfully deleted a tree!")
