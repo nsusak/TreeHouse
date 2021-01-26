@@ -49,7 +49,7 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
-
+//passport config - only AFTER session config !!!
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
