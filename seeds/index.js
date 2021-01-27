@@ -22,6 +22,7 @@ const seedDB = async () => {
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const tree = new Tree({
+            author: "60111fa5f31387008f16fcb4",
             location: `${cities[random1000].city}, ${cities[random1000].country}`,
             name: `${sample(descriptors)} ${sample(names)}`,
             image: "https://source.unsplash.com/collection/2194927/1600x900",
