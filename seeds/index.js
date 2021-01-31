@@ -25,8 +25,21 @@ const seedDB = async () => {
             author: "60111fa5f31387008f16fcb4",
             location: `${cities[random1000].city}, ${cities[random1000].country}`,
             name: `${sample(descriptors)} ${sample(names)}`,
-            image: "https://source.unsplash.com/collection/2194927/1600x900",
-            description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam vero aliquam cupiditate dolores nisi reprehenderit voluptatum voluptatem error illum mollitia, sit expedita dicta atque doloremque soluta doloribus? Eum, laborum. Provident?"
+            description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam vero aliquam cupiditate dolores nisi reprehenderit voluptatum voluptatem error illum mollitia, sit expedita dicta atque doloremque soluta doloribus? Eum, laborum. Provident?",
+            images: [
+                {
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/ijaezhxnkyki0f88k0kh.jpg",
+                    filename: "TreeHouse/ijaezhxnkyki0f88k0kh"
+                },
+                {
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/hacc8x4qur2fbeobyfhy.jpg",
+                    filename: "TreeHouse/hacc8x4qur2fbeobyfhy"
+                },
+                {
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/linhpcxbprrrbvxjvlcj.jpg",
+                    filename: "TreeHouse/linhpcxbprrrbvxjvlcj"
+                }
+            ]
         })
         await tree.save();
     }

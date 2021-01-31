@@ -8,7 +8,8 @@
         <div class="card mb-3">
             <div class="row">
                 <div class="col-md-4">
-                    <img src="<%=tree.image%>" class="img-fluid card-img-top" alt="">
+                    <!-- if a tree has all images deleted the whole index page breaks - find solution -->
+                    <img src="<%= tree.images[0].url %>" alt="" class="img-fluid">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -27,10 +28,7 @@
                             View <%= tree.name %>
                         </a>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
         <% } %>

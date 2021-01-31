@@ -2,7 +2,8 @@
     <div class="row">
         <h1 class="text-center">Edit Tree</h1>
         <div class="col-6 offset-3">
-            <form action="/trees/<%=tree._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
+            <form action="/trees/<%=tree._id%>?_method=PUT" method="POST" novalidate class="needs-validation"
+                enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
                     <input class="form-control" type="text" id="name" name="tree[name]" value="<%=tree.name%>" required>
@@ -19,20 +20,26 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" id="image" name="tree[image]" value="<%=tree.image%>"
-                        required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                </div>
-                <div class="mb-3">
                     <label class="form-label" for="description">Add description</label>
                     <textarea class="form-control" type="text" id="description" name="tree[description]"
                         required><%=tree.description%></textarea>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Add more image(s)</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
+                </div>
+                <div class="mb-3">
+                    <% tree.images.forEach(function(img,i) { %>
+                        <img src="<%=img.thumbnail%>" class="img-thumbnail" alt="">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="image-<%=i%>" value="<%=img.filename%>"
+                                name="deleteImages[]">
+                            <label class="form-check-label" for="image-<%=i%>">Delete?</label>
+                        </div>
+                        <% }) %>
                 </div>
                 <div class="mb-3">
                     <button class="btn btn-info">Update Tree</button>

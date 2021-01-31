@@ -4,9 +4,10 @@ module.exports.treeSchema = Joi.object({
     tree: Joi.object({
         name: Joi.string().required(),
         location: Joi.string().required(),
-        image: Joi.string().required(),
+        // image: Joi.string().required(),
         description: Joi.string().required()
-    }).required()
+    }).required(),
+    deleteImages: Joi.array()
 });
 
 module.exports.reviewSchema = Joi.object({

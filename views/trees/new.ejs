@@ -2,7 +2,7 @@
     <div class="row">
         <h1 class="text-center">New Tree</h1>
         <div class="col-6 offset-3">
-            <form action="/trees" method="POST" novalidate class="needs-validation">
+            <form action="/trees" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="name">Name</label>
                     <input class="form-control" type="text" id="name" name="tree[name]" required>
@@ -18,11 +18,8 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" id="image" name="tree[image]" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
+                    <label for="image" class="form-label">Upload image(s)</label>
+                    <input class="form-control" type="file" id="image" name="image" multiple>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="description">Add description</label>

@@ -1,4 +1,5 @@
 const Tree = require("../models/tree");
+const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
     const trees = await Tree.find({});
@@ -11,8 +12,10 @@ module.exports.renderNewForm = (req, res) => {
 
 module.exports.createTree = async (req, res) => {
     const tree = new Tree(req.body.tree);
+    tree.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     tree.author = req.user._id;
     await tree.save();
+    console.log(tree);
     req.flash("success", "Successfully made a new tree!");
     res.redirect(`/trees/${tree._id}`)
 }
@@ -44,6 +47,16 @@ module.exports.renderEditForm = async (req, res) => {
 module.exports.updateTree = async (req, res) => {
     const { id } = req.params;
     const tree = await Tree.findByIdAndUpdate(id, { ...req.body.tree });
+    const imgs = req.files.map(f => ({ url: f.path, filename: f.filename }));
+    tree.images.push(...imgs);
+    await tree.save();
+    if (req.body.deleteImages) {
+        for (let filename of req.body.deleteImages) {
+            await cloudinary.uploader.destroy(filename);
+        }
+        await tree.updateOne({ $pull: { images: { filename: { $in: req.body.deleteImages } } } });
+        console.log(tree)
+    }
     req.flash("success", "Successfully updated tree!")
     res.redirect(`/trees/${tree._id}`)
 }
