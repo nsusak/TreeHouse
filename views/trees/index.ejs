@@ -8,8 +8,13 @@
         <div class="card mb-3">
             <div class="row">
                 <div class="col-md-4">
-                    <!-- if a tree has all images deleted the whole index page breaks - find solution -->
-                    <img src="<%= tree.images[0].url %>" alt="" class="img-fluid">
+                    <% if(tree.images.length) { %>
+                        <img src="<%= tree.images[0].url %>" alt="" class="img-fluid">
+                        <% } else { %>
+                            <img src="https://osbornegroupcre.com/wp-content/uploads/2016/02/missing-image-640x360.png"
+                                alt="" class="img-fluid">
+                            <% } %>
+
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">

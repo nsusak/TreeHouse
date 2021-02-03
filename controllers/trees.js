@@ -1,4 +1,7 @@
 const Tree = require("../models/tree");
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require("../cloudinary");
 
 module.exports.index = async (req, res) => {
@@ -11,7 +14,12 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createTree = async (req, res) => {
+    const geoData = await geocoder.forwardGeocode({
+        query: req.body.tree.location,
+        limit: 1
+    }).send()
     const tree = new Tree(req.body.tree);
+    tree.geometry = geoData.body.features[0].geometry;
     tree.images = req.files.map(f => ({ url: f.path, filename: f.filename }));
     tree.author = req.user._id;
     await tree.save();
