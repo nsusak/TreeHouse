@@ -11,6 +11,8 @@ ImageSchema.virtual("thumbnail").get(function () {
     return this.url.replace("/upload", "/upload/w_200");
 });
 
+const opts = { toJSON: { virtuals: true } };
+
 const TreeSchema = new Schema({
     name: String,
     images: [ImageSchema],
@@ -37,6 +39,10 @@ const TreeSchema = new Schema({
             ref: "Review"
         }
     ]
+}, opts);
+
+TreeSchema.virtual("properties.popUpMarkup").get(function () {
+    return `<strong><a href="/trees/${this.id}">${this.name}</a><strong>`
 });
 
 TreeSchema.post("findOneAndDelete", async function (doc) {

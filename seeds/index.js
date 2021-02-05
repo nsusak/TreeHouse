@@ -19,7 +19,7 @@ const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Tree.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const tree = new Tree({
             author: "60111fa5f31387008f16fcb4",
@@ -28,7 +28,8 @@ const seedDB = async () => {
             description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam vero aliquam cupiditate dolores nisi reprehenderit voluptatum voluptatem error illum mollitia, sit expedita dicta atque doloremque soluta doloribus? Eum, laborum. Provident?",
             geometry: {
                 type: "Point",
-                coordinates: [-82.321534, 23.101612]
+                coordinates: [cities[random1000].lng,
+                cities[random1000].lat,]
             },
             images: [
                 {
