@@ -33,15 +33,15 @@ const seedDB = async () => {
             },
             images: [
                 {
-                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/ijaezhxnkyki0f88k0kh.jpg",
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612035738/TreeHouse/b9rofhbvm0hvutmww0pa.jpg",
                     filename: "TreeHouse/ijaezhxnkyki0f88k0kh"
                 },
                 {
-                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/hacc8x4qur2fbeobyfhy.jpg",
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612035814/TreeHouse/kfjogtxi37bpeotfbkga.jpg",
                     filename: "TreeHouse/hacc8x4qur2fbeobyfhy"
                 },
                 {
-                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612032977/TreeHouse/linhpcxbprrrbvxjvlcj.jpg",
+                    url: "https://res.cloudinary.com/dots4dzl7/image/upload/v1612035826/TreeHouse/z2j1ktandsa9iwarulkn.jpg",
                     filename: "TreeHouse/linhpcxbprrrbvxjvlcj"
                 }
             ]
